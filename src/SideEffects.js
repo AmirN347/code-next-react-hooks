@@ -5,14 +5,26 @@ const MAX_CHARS = 16;
 
 export const SideEffects = () => {
   const [username, setUsername] = useState('');
+  const [statusEmoji, setEmojiStatus] = useState('');
+  const [charCount, updateCharCount] = useState(0);
 
   const onChange = (e) => {
     setUsername(e.target.value);
   };
+  const refreshChars = () => {
+    updateCharCount(charCount + 1);
+  };
 
-  // TODO: Create a side effect that updates statusEmoji based on the
+  const updateEmojiStatus = () => {
+    if (charCount < MAX_CHARS && charCount > MIN_CHARS) {
+      setEmojiStatus('happy');
+    } else if (charCount == 0) {
+      setEmojiStatus('netural');
+    } else {
+      setEmojiStatus('angry');
+    }
+  }; // TODO: Create a side effect that updates statusEmoji based on the
   // username's length with respect to MIN_CHARS and MAX_CHARS.
-  let statusEmoji = '';
 
   return (
     <>
@@ -30,7 +42,7 @@ export const SideEffects = () => {
       </div>
 
       {/* TODO: Show how many characters the username has. */}
-      <small>char count:</small>
+      <small>char count: {username.length} </small>
     </>
   );
 };
